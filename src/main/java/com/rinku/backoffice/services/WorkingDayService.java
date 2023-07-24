@@ -2,6 +2,7 @@ package com.rinku.backoffice.services;
 
 import com.rinku.backoffice.persistence.dao.WorkingDayDao;
 import com.rinku.backoffice.persistence.model.WorkingDay;
+import com.rinku.backoffice.utils.Constants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class WorkingDayService {
 
     public ResponseEntity<?> createWorkingDay(WorkingDay workingDay){
         Optional<WorkingDay> workingDayOpt=workingDayDao.findWorkingDayByRolId_Id(workingDay.getRolId().getId());
-        Optional<WorkingDay> workingDayAllOpt=workingDayDao.findWorkingDayByRolId_Id(0L);
+        Optional<WorkingDay> workingDayAllOpt=workingDayDao.findWorkingDayByRolId_Id(Constants.ROL_ALL);
         if(workingDayOpt.isPresent()||workingDayAllOpt.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
