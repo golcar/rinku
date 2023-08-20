@@ -1,6 +1,7 @@
 package com.rinku.backoffice.persistence.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Builder
@@ -29,5 +31,14 @@ public class Rol {
     private Date modifiedAt;
     private String modifiedBy;
     private boolean deleted;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "rolId", orphanRemoval = true)
+    private List<Compensation> compensations;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "rolId", orphanRemoval = true)
+    private List<Retention> retentions;
+
 
 }
